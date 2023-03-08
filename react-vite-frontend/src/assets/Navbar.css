@@ -1,0 +1,50 @@
+.logo {
+	height: 1.5em;
+	margin-right: 10px;
+}
+.logo:hover {
+	background-color: rgb(87, 89, 89);
+	background-size: 1em;
+	border-radius: 20%;
+}
+
+.navbar-whole {
+	overflow: hidden;
+	border: solid;
+	border-color: rgb(57, 59, 59);
+	background-color: #333;
+	width: auto;
+}
+
+span {
+	display: flex;
+	font-weight: 600;
+	color: #d5d6e7;
+	text-decoration: inherit;
+	background-color: #242424;
+	border-radius: 100%;
+}
+
+.text-logo-container {
+	align-items: center;
+	float: left;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px;
+	cursor: pointer;
+	font-size: 17px;
+}
+
+.link-items-middle a {
+	text-align: center;
+	font-size: larger;
+	cursor: pointer;
+	padding: 2em;
+}
+
+.link-items-last a {
+	float: right;
+	text-align: center;
+	font-size: larger;
+	cursor: pointer;
+}
