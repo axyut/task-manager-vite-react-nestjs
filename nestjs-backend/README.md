@@ -1,3 +1,6 @@
+<!-- to do
+any user can add to do list to any users db if he she knows the other user's id -->
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
