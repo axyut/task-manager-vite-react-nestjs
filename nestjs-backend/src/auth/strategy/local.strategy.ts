@@ -19,6 +19,5 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
       throw new UnauthorizedException(`User not found of this email ${email}`);
     if (user.password != password)
       throw new UnauthorizedException(`Invalid Credentials!`);
-    return;
   }
 }
