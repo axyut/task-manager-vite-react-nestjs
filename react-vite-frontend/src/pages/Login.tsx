@@ -93,9 +93,8 @@ const Login = () => {
 					</span>
 					<span>
 						<a
-							onClick={() => {
-								navigate("/api");
-							}}
+							href={import.meta.env.VITE_BASE_URL + "/api"}
+							target="_blank"
 						>
 							API?
 						</a>
