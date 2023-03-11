@@ -5,16 +5,19 @@
 Provide Postgres Database and JWT Parameters
 in .local.env file in Nestjs root folder accordingly :
 
-`DATABASE_HOST
-DATABASE_PORT
-DATABASE_USERNANE
-DATABASE_PASSWORD
-DATABASE_NAME
-DATABASE_SYNC
-DATABASE_LOGGING
-`
-`JWT_KEY
-JWT_EXPIRE`
+```
+DATABASE_HOST=
+DATABASE_PORT=
+DATABASE_USERNANE=
+DATABASE_PASSWORD=
+DATABASE_NAME=
+DATABASE_SYNC=
+DATABASE_LOGGING=
+```
+```
+JWT_KEY=
+JWT_EXPIRE=
+```
 
 ## NestJs Install Dependencies
 
@@ -52,7 +55,7 @@ Provide Backend Configuration
 in .env file in React root folder accordingly :
 
 ```
-VITE_BASE_URL
+VITE_BASE_URL=
 ```
 
 ## Run Vite App (Default Port is 4000)
