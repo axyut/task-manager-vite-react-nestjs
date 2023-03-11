@@ -24,7 +24,7 @@ export class User {
   // one user can have multiple todos (one to many relation)
   @OneToMany(
     () => Todo,
-    (todo) => todo.user, // reverse relation happening with user: User
+    (todo: Todo) => todo.user, // reverse relation happening with user: User
   )
   todos: Todo[];
 }

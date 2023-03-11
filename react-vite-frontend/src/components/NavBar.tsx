@@ -8,11 +8,12 @@ import "../assets/Navbar.css";
 const NavBar = () => {
 	let navigate = useNavigate();
 	const role = getLoginInfo()?.role;
-
+	const firstName = getLoginInfo()?.firstName;
 	return (
 		<nav className="navbar-whole">
 			<div className="text-logo-container">
 				<span
+					id="nav-span"
 					onClick={() => {
 						navigate("/");
 					}}
@@ -23,11 +24,13 @@ const NavBar = () => {
 			</div>
 			<div className="link-items-last">
 				<a
+					className="button-tans"
 					onClick={() => {
 						localStorage.removeItem("token");
 						navigate("/login");
 					}}
 				>
+					<span>{firstName}</span>
 					Log Out
 				</a>
 			</div>

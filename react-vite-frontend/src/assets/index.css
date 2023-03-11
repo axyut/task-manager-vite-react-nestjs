@@ -34,8 +34,9 @@ body {
 }
 
 h1 {
-	font-size: 3.2em;
-	line-height: 1.1;
+	text-align: center;
+	font-size: 2em;
+	font-family: "Courier New", Courier, monospace;
 }
 
 button {
@@ -69,3 +70,39 @@ button:focus-visible {
 		background-color: #f9f9f9;
 	}
 } */
+
+/* .list-item-activeTask {
+	cursor: pointer;
+	width: min-content;
+} */
+
+label {
+	background: #2a2a29;
+	width: fit-content;
+	display: grid;
+	padding: 0.2rem 0.5rem;
+	border-radius: 20% 45% 20% 5%/5% 20% 25% 60%;
+	border: 2px solid hsl(198, 1%, 29%);
+}
+
+.button-tans {
+	padding: 0;
+	border: none;
+	font-family: "Architects Daughter", cursive;
+	text-decoration: none;
+	padding-bottom: 3px;
+	border-radius: 20% 5% 20% 65%/35% 20% 25% 20%;
+	background-color: transparent;
+}
+
+span {
+	display: grid;
+	margin: 5px;
+	padding: 5px;
+	width: fit-content;
+	font-weight: 600;
+	color: #d5d6e7;
+	text-decoration: inherit;
+	background-color: #242424;
+	border-radius: 10%;
+}

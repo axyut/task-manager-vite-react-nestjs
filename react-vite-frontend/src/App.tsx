@@ -4,7 +4,7 @@ import reactLogo from "./assets/react.svg";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./assets/App.css";
 
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import ActiveTodos from "./pages/activeTodos";
@@ -19,9 +19,10 @@ const App = () => {
 		<div>
 			<BrowserRouter>
 				<ToastContainer
+					transition={Zoom}
 					autoClose={2000}
-					position={"top-center"}
-					hideProgressBar={false}
+					position={"top-right"}
+					hideProgressBar={true}
 					newestOnTop={false}
 					closeOnClick
 					rtl={false}

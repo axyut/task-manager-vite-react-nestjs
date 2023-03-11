@@ -16,7 +16,7 @@
 	width: auto;
 }
 
-span {
+#nav-span {
 	display: flex;
 	font-weight: 600;
 	color: #d5d6e7;
@@ -36,6 +36,8 @@ span {
 }
 
 .link-items-middle a {
+	line-height: 0;
+	display: inline-table;
 	text-align: center;
 	font-size: larger;
 	cursor: pointer;

@@ -1,28 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import NavBar from "../components/NavBar";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import custom_axios from "../axios/custom_axios";
 import { ApiConstants } from "../api/api_constants";
+import { getLoginInfo } from "../utils/LoginInfo";
 
 const Login = () => {
 	let navigate = useNavigate();
-	let email: any = React.useRef();
-	let password: any = React.useRef();
+	const [email, setemail] = useState("");
+	const [password, setpassword] = useState("");
 
 	const loginApp = async () => {
-		if (email.current.value == "" || password.current.value == "") {
+		if (email == "" || password == "") {
 			toast.info("Please fill the information");
 			return;
 		}
 		try {
 			const response = await custom_axios.post(ApiConstants.LOGIN, {
-				email: email.current.value,
-				password: password.current.value,
+				email: email,
+				password: password,
 			});
+
+			// Setting Up recieved token for the user
 			localStorage.setItem("token", response.data.token);
 			dispatchEvent(new Event("storage"));
-			toast.info("Login Successfull!");
+
+			// Welcoming User by decoding token
+			const firstName = getLoginInfo()?.firstName;
+			toast.info(`Welcome Back! ${firstName}`);
+
 			navigate("/");
 		} catch (error: any) {
 			if (error.response.status == 401)
@@ -30,32 +37,69 @@ const Login = () => {
 		}
 	};
 	return (
-		<div>
-			<h2>Login page</h2>
-
+		<div className="main">
 			<div>
 				<h3>My Account</h3>
-				<div>
+				<div className="container">
 					<form>
-						<label>Email</label>
-						<input ref={email} type="email" />
-						<label>Paasword</label>
-						<input ref={password} type="passowrd" />
-
-						<button onClick={loginApp} type="button">
-							Register Account
-						</button>
+						<div className="inputFields">
+							<label>Email</label>
+							<input
+								value={email}
+								type="email"
+								onChange={(event) => {
+									setemail(event.target.value);
+								}}
+							/>
+						</div>
+						<div className="inputFields">
+							<label>Paasword</label>
+							<input
+								value={password}
+								type="passowrd"
+								onChange={(event) => {
+									setpassword(event.target.value);
+								}}
+							/>
+						</div>
+						<div>
+							<button
+								className="active-btn"
+								onClick={loginApp}
+								type="button"
+							>
+								<span>Login</span>
+							</button>
+						</div>
 					</form>
-					<div>
+					<span>
 						Haven't Registered Yet?
 						<a
 							onClick={() => {
 								navigate("/signUp");
 							}}
 						>
-							SignUp!
+							Sign Up!
 						</a>
-					</div>
+					</span>
+
+					<span>
+						<a
+							href="https://github.com/axyut/task-manager-vite-react-nestjs"
+							target="_blank"
+						>
+							About?
+						</a>
+					</span>
+					<span>
+						<a
+							onClick={() => {
+								navigate("/api");
+							}}
+						>
+							API?
+						</a>
+					</span>
 				</div>
 			</div>
 		</div>

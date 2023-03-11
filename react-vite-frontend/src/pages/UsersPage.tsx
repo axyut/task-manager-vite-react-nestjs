@@ -44,61 +44,66 @@ const UsersPage = () => {
 	return (
 		<div>
 			<NavBar></NavBar>
-			<h1>Users page</h1>
-			<div>
-				<table>
-					<thead>
-						<tr>
-							<th scope="col">First Name</th>
-							<th scope="col">Last Name</th>
-							<th scope="col">Email</th>
-							<th scope="col">Active</th>
-						</tr>
-					</thead>
-					<tbody>
-						{users.map((user) => {
-							return (
-								<tr key={user.id}>
-									<td>{user.firstName}</td>
-									<td>{user.lastName}</td>
-									<td>{user.email}</td>
-									<td>
-										<button
-											hidden={
-												user.role == "ADMIN"
-													? true
-													: false
-											}
-											onClick={async () => {
-												const response =
-													await custom_axios.delete(
-														ApiConstants.USER.DELETE(
-															user.id
-														),
-														{
-															headers: {
-																Authorization:
-																	"Bearer " +
-																	localStorage.getItem(
-																		"token"
-																	),
-															},
-														}
-													);
-												getAllUsers();
-												toast.success(
-													"User Deleted Sucessfully!!"
-												);
-											}}
-										>
-											Delete
-										</button>
-									</td>
+			<div className="main">
+				<div className="container">
+					<div>
+						<table>
+							<thead>
+								<tr>
+									<th scope="col">Full Name</th>
+
+									<th scope="col">Email</th>
+									<th scope="col">Active</th>
 								</tr>
-							);
-						})}
-					</tbody>
-				</table>
+							</thead>
+							<tbody>
+								{users.map((user) => {
+									return (
+										<tr key={user.id}>
+											<td>
+												{user.firstName}_{user.lastName}
+											</td>
+
+											<td>{user.email}</td>
+											<td>
+												<button
+													hidden={
+														user.role == "ADMIN"
+															? true
+															: false
+													}
+													onClick={async () => {
+														const response =
+															await custom_axios.delete(
+																ApiConstants.USER.DELETE(
+																	user.id
+																),
+																{
+																	headers: {
+																		Authorization:
+																			"Bearer " +
+																			localStorage.getItem(
+																				"token"
+																			),
+																	},
+																}
+															);
+														getAllUsers();
+														toast.success(
+															"User Deleted Sucessfully!!"
+														);
+													}}
+												>
+													Delete
+												</button>
+											</td>
+										</tr>
+									);
+								})}
+							</tbody>
+						</table>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

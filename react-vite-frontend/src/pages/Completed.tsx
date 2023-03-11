@@ -43,36 +43,45 @@ const Completed = () => {
 	return (
 		<div>
 			<NavBar></NavBar>
-			<h1>Completed page</h1>
-			<div>
-				<ul>
-					{todos.map((todo) => {
-						return (
-							<CompletedTodoList
-								key={todo.id}
-								dateTime={todo.date}
-								deleteTodo={async () => {
-									const response = await custom_axios.delete(
-										ApiConstants.TODO.DELETE(todo.id),
-										{
-											headers: {
-												Authorization:
-													"Bearer " +
-													localStorage.getItem(
-														"token"
+			<div className="main">
+				<div className="container">
+					<h1>Completed page</h1>
+					<div>
+						<ul>
+							{todos.map((todo) => {
+								return (
+									<CompletedTodoList
+										key={todo.id}
+										dateTime={todo.date}
+										deleteTodo={async () => {
+											const response =
+												await custom_axios.delete(
+													ApiConstants.TODO.DELETE(
+														todo.id
 													),
-											},
-										}
-									);
-									getAllCompletedTodos();
-									toast.success("Todo Deleted Sucessfully!!");
-								}}
-								id={todo.id}
-								todo={todo.title}
-							></CompletedTodoList>
-						);
-					})}
-				</ul>
+													{
+														headers: {
+															Authorization:
+																"Bearer " +
+																localStorage.getItem(
+																	"token"
+																),
+														},
+													}
+												);
+											getAllCompletedTodos();
+											toast.success(
+												"Todo Deleted Sucessfully!!"
+											);
+										}}
+										id={todo.id}
+										todo={todo.title}
+									></CompletedTodoList>
+								);
+							})}
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

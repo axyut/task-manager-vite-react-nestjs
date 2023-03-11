@@ -1,12 +1,13 @@
 import axios from "axios";
 
-let custom_axios = axios.create({
+const custom_axios = axios.create({
+	// with vite import env vars with import.meta.env
 	baseURL: import.meta.env.VITE_BASE_URL,
 	headers: {
 		Accept: "*/*",
 		"Content-Type": "application/json",
 	},
-	timeout: 5000,
+	//timeout: 5000, // 5 seconds
 });
 
 export default custom_axios;

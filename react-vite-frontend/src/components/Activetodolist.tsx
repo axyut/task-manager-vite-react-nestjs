@@ -11,17 +11,24 @@ interface ActiveTodoListProps {
 const ActiveTodoList = (props: ActiveTodoListProps) => {
 	return (
 		<li>
-			<div>
-				<div>
+			<div className="Alists">
+				<span
+					className="list-item-activeTask"
+					onClick={() => props.markCompelte(props.id)}
+				>
+					✔️
+				</span>
+				<div className="list-item">
 					<div>{props.todo}</div>
-					<div>{props.dateTime}</div>
+					<div style={{ fontSize: "10px" }}>{props.dateTime}</div>
 				</div>
-				<button onClick={() => props.markCompelte(props.id)}>
-					Mark Completed
-				</button>
-				<button onClick={() => props.deleteTodo(props.id)}>
-					Delete
-				</button>
+
+				<span
+					className="list-item-activeTask"
+					onClick={() => props.deleteTodo(props.id)}
+				>
+					❌
+				</span>
 			</div>
 		</li>
 	);

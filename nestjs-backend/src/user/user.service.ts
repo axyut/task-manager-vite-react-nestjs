@@ -32,6 +32,9 @@ export class UserService {
   }
 
   remove(id: number) {
+    // when a user is being deleted we also need to delete all the todos
+    // associated with that user
+
     return this.userRepo.delete(id);
   }
 

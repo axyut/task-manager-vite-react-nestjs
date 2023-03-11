@@ -4,56 +4,120 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import custom_axios from "../axios/custom_axios";
 import { ApiConstants } from "../api/api_constants";
+import { useState } from "react";
 
 const SignUp = () => {
 	let navigate = useNavigate();
-	let firstName: any = React.useRef();
-	let lastName: any = React.useRef();
-	let password: any = React.useRef();
-	let confirmPassword: any = React.useRef();
-	let email: any = React.useRef();
+	//let firstName: any = React.useRef();
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setlastName] = useState("");
+	const [email, setemail] = useState("");
+	const [password, setpassword] = useState("");
+	const [confirmPassword, setconfirmPassword] = useState("");
+
+	function putfirst(event: any) {
+		setFirstName(event.target.value);
+	}
+
+	function putlast(event: any) {
+		setlastName(event.target.value);
+	}
+	function putEmail(event: any) {
+		setemail(event.target.value);
+	}
+
+	function putpassword(event: any) {
+		setpassword(event.target.value);
+	}
+	function putconfirm(event: any) {
+		setconfirmPassword(event.target.value);
+	}
 
 	const register = async () => {
-		if (password.current.value != confirmPassword.current.value) {
+		if (!firstName || !lastName || !email || !password) {
+			toast.info("Please fill all the fields");
+			return;
+		}
+		if (password != confirmPassword) {
 			toast.info("password doesn't match!");
 			return;
 		}
-		console.log(firstName, lastName, email, password);
-
-		const response = await custom_axios.post(ApiConstants.USER.SIGN_UP, {
-			firstName,
-			lastName,
-			email,
-			password,
-		});
-		toast.success(response.data);
-		navigate("/login");
+		try {
+			const response = await custom_axios.post(
+				ApiConstants.USER.SIGN_UP,
+				{
+					firstName,
+					lastName,
+					email,
+					password,
+				}
+			);
+			toast.success(`Congratulations! ${firstName}. Please Log in.`);
+			console.log(response);
+			navigate("/login");
+		} catch (error: any) {
+			if (error.response.status == 400)
+				toast.warn(error.response.data.message[0]);
+		}
 	};
 
 	return (
-		<div>
-			<h2>Sign up page</h2>
-
+		<div className="main">
 			<div>
 				<h3>Create an Account.</h3>
-				<div>
-					<form action="" method="post">
-						<label>First Name</label>
-						<input ref={firstName} type="text" />
-						<label>Last Name</label>
-						<input ref={lastName} type="text" />
-						<label>Email</label>
-						<input ref={email} type="email" />
-						<label>Paasword</label>
-						<input ref={password} type="passowrd" />
-						<label>Confirm Paasword</label>
-						<input ref={confirmPassword} type="password" />
-
-						<button onClick={register} type="button">
-							Register Account
-						</button>
+				<div className="container">
+					<form>
+						<div className="inputFields">
+							<label>First Name</label>
+							<input
+								value={firstName}
+								type="text"
+								onChange={putfirst}
+							/>
+						</div>
+						<div className="inputFields">
+							<label>Last Name</label>
+							<input
+								value={lastName}
+								type="text"
+								onChange={putlast}
+							/>
+						</div>
+						<div className="inputFields">
+							<label>Email</label>
+							<input
+								value={email}
+								type="email"
+								onChange={putEmail}
+							/>
+						</div>
+						<div className="inputFields">
+							<label>Paasword</label>
+							<input
+								value={password}
+								type="password"
+								onChange={putpassword}
+							/>
+						</div>
+						<div className="inputFields">
+							<label>Confirm Paasword</label>
+							<input
+								value={confirmPassword}
+								type="password"
+								onChange={putconfirm}
+							/>
+						</div>
+						<div>
+							<button
+								className="active-btn"
+								onClick={register}
+								type="button"
+							>
+								<span>Register Account</span>
+							</button>
+						</div>
 					</form>
-					<div>
+					<span>
 						Already have an account?
 						<a
 							onClick={() => {
@@ -62,7 +126,7 @@ const SignUp = () => {
 						>
 							Login!
 						</a>
-					</div>
+					</span>
 				</div>
 			</div>
 		</div>

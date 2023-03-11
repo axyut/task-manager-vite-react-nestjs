@@ -7,6 +7,9 @@ import { JwtAuthGuard } from './auth/guard/jwt.guard';
 async function start() {
   const app = await NestFactory.create(AppModule);
 
+  // allow connection to any frontend
+  app.enableCors();
+
   // global guard
   app.useGlobalGuards(new JwtAuthGuard());
 

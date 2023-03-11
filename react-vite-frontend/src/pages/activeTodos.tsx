@@ -6,6 +6,7 @@ import ActiveTodoList from "../components/Activetodolist";
 import NavBar from "../components/NavBar";
 import { getLoginInfo } from "../utils/LoginInfo";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 interface TodoModel {
 	title: string;
@@ -16,7 +17,7 @@ interface TodoModel {
 export default function ActiveTodos() {
 	const navigate = useNavigate();
 	const [todos, setTodos] = React.useState<TodoModel[]>([]);
-	const title: any = React.useRef();
+	const [title, setTitle] = useState("");
 
 	// get all todos not completed with respect to userid
 	const getAllNotCompletedTodos = async () => {
@@ -39,7 +40,7 @@ export default function ActiveTodos() {
 	};
 
 	const saveTodo = async () => {
-		if (title.current.value == "") {
+		if (title == "") {
 			toast.info("Please Provide Title");
 			return;
 		}
@@ -48,7 +49,7 @@ export default function ActiveTodos() {
 			const response = await custom_axios.post(
 				ApiConstants.TODO.ADD(userId),
 				{
-					title: title.current.value,
+					title: title,
 				},
 				{
 					headers: {
@@ -58,7 +59,7 @@ export default function ActiveTodos() {
 				}
 			);
 			getAllNotCompletedTodos();
-			title.current.value = "";
+			setTitle("");
 			toast.success("Todo Added Scuessfully!!");
 		} else {
 			toast.info("Sorry you are not authenticated");
@@ -70,61 +71,84 @@ export default function ActiveTodos() {
 	}, []);
 
 	return (
-		<div>
+		<>
 			<NavBar></NavBar>
-			<h1>Your actives</h1>
-			<div>
-				<ul>
-					<span>Enter a task:</span>
-					<input ref={title} type="text" />
-					<button onClick={saveTodo}>Save</button>
-					{todos.map((todo) => {
-						return (
-							<ActiveTodoList
-								key={todo.id}
-								dateTime={todo.date}
-								deleteTodo={async () => {
-									const response = await custom_axios.delete(
-										ApiConstants.TODO.DELETE(todo.id),
-										{
-											headers: {
-												Authorization:
-													"Bearer " +
-													localStorage.getItem(
-														"token"
+			<div className="main">
+				<div className="container">
+					<h1>Your actives</h1>
+
+					<div className="heading">
+						{/* <span>Enter a task:</span> */}
+						<input
+							value={title}
+							type="text"
+							onChange={(event) => {
+								setTitle(event.target.value);
+							}}
+						/>
+						<button className="active-btn" onClick={saveTodo}>
+							<span>Add</span>
+						</button>
+					</div>
+					<div>
+						<ul>
+							{todos.map((todo) => {
+								return (
+									<ActiveTodoList
+										key={todo.id}
+										dateTime={todo.date}
+										deleteTodo={async () => {
+											const response =
+												await custom_axios.delete(
+													ApiConstants.TODO.DELETE(
+														todo.id
 													),
-											},
-										}
-									);
-									getAllNotCompletedTodos();
-									toast.success("Todo Deleted Sucessfully!!");
-								}}
-								markCompelte={async () => {
-									const response = await custom_axios.patch(
-										ApiConstants.TODO.MARK_COMPLETE(
-											todo.id
-										),
-										{},
-										{
-											headers: {
-												Authorization:
-													"Bearer " +
-													localStorage.getItem(
-														"token"
+													{
+														headers: {
+															Authorization:
+																"Bearer " +
+																localStorage.getItem(
+																	"token"
+																),
+														},
+													}
+												);
+											getAllNotCompletedTodos();
+											toast.success(
+												"Todo Deleted Sucessfully!!"
+											);
+										}}
+										markCompelte={async () => {
+											const response =
+												await custom_axios.patch(
+													ApiConstants.TODO.MARK_COMPLETE(
+														todo.id
 													),
-											},
-										}
-									);
-									getAllNotCompletedTodos();
-									toast.success("Todo Marked Completed");
-								}}
-								id={todo.id}
-								todo={todo.title}
-							></ActiveTodoList>
-						);
-					})}
-				</ul>
+													{},
+													{
+														headers: {
+															Authorization:
+																"Bearer " +
+																localStorage.getItem(
+																	"token"
+																),
+														},
+													}
+												);
+											getAllNotCompletedTodos();
+											toast.success(
+												"Todo Marked Completed"
+											);
+										}}
+										id={todo.id}
+										todo={todo.title}
+									></ActiveTodoList>
+								);
+							})}
+						</ul>
+					</div>
+				</div>
 			</div>
-		</div>
+		</>
 	);
 }
