@@ -9,7 +9,11 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true, envFilePath: ['.local.env'] }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      //envFilePath: ['.prod.env'],
+      envFilePath: ['.local.env'],
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

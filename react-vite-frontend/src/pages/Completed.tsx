@@ -45,7 +45,7 @@ const Completed = () => {
 			<NavBar></NavBar>
 			<div className="main">
 				<div className="container">
-					<h1>Completed page</h1>
+					<h1>Completed Tasks</h1>
 					<div>
 						<ul>
 							{todos.map((todo) => {
